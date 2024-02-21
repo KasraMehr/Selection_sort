@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class ArrayList {
     private int size;
-    private List<String> array;
+    private List<Integer> array;
 
-    public ArrayList(int size, List<String> array)
+    public ArrayList(int size, List<Integer> array)
     {
         this.size = size;
         this.array = array;
@@ -19,7 +19,7 @@ public class ArrayList {
         this.size = size;
     }
 
-    public void setArray(List<String> array) {
+    public void setArray(List<Integer> array) {
         this.array = array;
     }
 
@@ -27,50 +27,49 @@ public class ArrayList {
         return size;
     }
 
-    public List<String> getArray() {
+    public List<Integer> getArray() {
         return array;
     }
 
-    private List<String> stepSelectionSort(List<String> array, int size, int step)
+    private List<Integer> stepSelectionSort(List<Integer> array, int size, int step)
     {
-        int smallest = Integer.parseInt(array.get(step));
+        int smallest = array.get(step);
         int smallestIndex = step;
         for(int i=step+1; i<size; i++){
-            if(Integer.parseInt(array.get(i)) < smallest){
-                smallest = Integer.parseInt(array.get(i));
+            if(array.get(i) < smallest){
+                smallest = array.get(i);
                 smallestIndex = i;
             }
         }
-        int temp = Integer.parseInt(array.get(step));
-        array.set(step, String.valueOf(smallest));
-        array.set(smallestIndex, String.valueOf(temp));
+        int temp = array.get(step);
+        array.set(step, smallest);
+        array.set(smallestIndex, temp);
         return array;
     }
 
-    public List<List<String>> SelectionSort(List<String> array, int size)
+    public List<List<Integer>> SelectionSort(List<Integer> array, int size)
     {
-        List<List<String>> arrays = Collections.singletonList(array);
+        List<List<Integer>> arrays = Collections.singletonList(array);
+        List<Integer> sortedList = array;
+        Collections.sort(sortedList);
         int step = 0;
-        while(arrays.get(step) != stepSelectionSort(array, size, step)){
-            stepSelectionSort(array, size, step);
+        while(array != sortedList){
+            array = stepSelectionSort(array, size, step);
             step += 1;
             arrays.add(array);
         }
         return arrays;
     }
 
-    public List<String> createRandomNumbers(int size)
-    {
-        Random rand = new Random();
-        if(size < 1){
-            return Collections.singletonList("Error");
-        }
-        List<String> array = Collections.singletonList(String.valueOf(rand.nextInt(1000)));
-        for(int i = 1; i <= size+1; i++){
-            assert false;
-            array.add(String.valueOf(rand.nextInt(1000)));
-        }
-        return array;
-    }
+//    public List<Integer> createRandomNumbers(int size)
+//    {
+//        Random rand = new Random();
+//        List<Integer> array = Collections.singletonList(String.valueOf(rand.nextInt(1000)));
+//        for(int i = 1; i <= size+1; i++){
+//            assert false;
+//            array.add(String.valueOf(rand.nextInt(1000)));
+//        }
+//        return array;
+//    }
 
 }
